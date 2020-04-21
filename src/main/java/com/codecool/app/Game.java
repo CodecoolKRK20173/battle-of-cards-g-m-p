@@ -13,7 +13,6 @@ public class Game{
         this.player1 = player1;
         this.player2 = player2;
         battle = new Battle();
-
     }
 
     public Player gameLoop() {
@@ -27,13 +26,13 @@ public class Game{
     }
 
     private boolean nobodyWon() {
-        if (player1.getAmountOfCards == 0 || player2.getAmountOfCards == 0)
-            return false;
+        if (player1.getAmountOfCards() == 0 || player2.getAmountOfCards() == 0)
+            return true; // TODO item
         return true;
     }
 
     private Player getWinner() {
-        if (player1.getAmountOfCards == 0)
+        if (player1.getAmountOfCards() == 0)
             return player2;
         return player1;
     }
