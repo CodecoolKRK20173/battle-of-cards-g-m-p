@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Cards>
+    <Card>
+        <name>Wizard</name>
+            <Stats>
+                <Health>2</Health>
+                <Strength>5</Strength>
+                <Magic>10</Magic>
+            </Stats> 
+    </Card>
+    <Card>
+        <name>Knight</name>
+            <Stats>
+                <Health>10</Health>
+                <Strength>8</Strength>
+                <Magic>2</Magic>
+            </Stats> 
+    </Card>
+    <Card>
+        <name>Barbarian</name>
+            <Stats>
+                <Health>10</Health>
+                <Strength>10</Strength>
+                <Magic>1</Magic>
+            </Stats> 
+    </Card>
+</Cards>
