@@ -17,9 +17,9 @@ public abstract class Player{
         return hand.get(index);
     }
 
-    public Stats selectStat(Card card, Stats stat ){
-        return card.getStats(stat);
-    }
+    // public Stats selectStat(Card card, Stats stat ){
+    //     return card.getStats(stat);
+    // }
 
     public int getAmountOfCards(){
         return hand.size();
