@@ -1,10 +1,13 @@
 package com.codecool.app;
 
-public class Game {
-    /*
+import com.codecool.player.*;
+
+public class Game{
+    
 
     Player player1;
     Player player2;
+    Battle battle;
 
     public Game(Player player1, Player player2) {
         this.player1 = player1;
@@ -29,6 +32,12 @@ public class Game {
         return true;
     }
 
-    */
+    private Player getWinner() {
+        if (player1.getAmountOfCards == 0)
+            return player2;
+        return player1;
+    }
+
+    
 
 }
