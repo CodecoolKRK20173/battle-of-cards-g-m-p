@@ -1,14 +1,20 @@
 package com.codecool.player;
 
 public class Card {
-    private Stat stats;
+    private String name;
+    private int health = 0;
+    private int strength = 0;
+    private int magic= 0;
 
-    public Stat getStat(){
-        return stats;
+    public Card(String name, int health, int strength, int magic){
+      this.name = name;
+      this.health = health;
+      this.strength = strength;
+      this.magic = magic;
     }
-
-	public Stat getStat(Stat stat) {
-		return stat;
-	}
+    
+    // public Stats getStats(Stats stat) {
+		//   return null;
+	// }
         
 }
