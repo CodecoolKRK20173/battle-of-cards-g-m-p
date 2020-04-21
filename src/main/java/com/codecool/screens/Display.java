@@ -52,21 +52,6 @@ public class Display {
         scan.nextLine();
     }
 
-    public String getCardImage(int amountOfCards) {
-        int cardWidth = 50;
-        String cardImage = String.format(" %s%s\n %s%s\\\n%s%-50s|\n%s%s|\n%s%-50s|\n%s%-50s|\n%s%-50s|\n %s%s/\n",
-                " ".repeat(amountOfCards), "_".repeat(cardWidth-2),
-                "/".repeat(amountOfCards), " ".repeat(cardWidth-2),
-                "|".repeat(amountOfCards), "cardName",
-                "|".repeat(amountOfCards), "-".repeat(cardWidth),
-                "|".repeat(amountOfCards), 5,
-                "|".repeat(amountOfCards), 5,
-                "|".repeat(amountOfCards), 5,
-                "\\".repeat(amountOfCards), "_".repeat(cardWidth-2));
-        return cardImage;
-
-    }
-
     private void clearScreen() {
         System.out.print("\033[H\033[2J");
     }

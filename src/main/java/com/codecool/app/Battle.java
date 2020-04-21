@@ -17,8 +17,8 @@ public class Battle {
         Card player1Card = player1.throwCard(0);
         Card player2Card = player2.throwCard(0);
 
-        StatsType statsType = display.statisticsSelection(display.getCardImage(10), "asdfasdf");
-        display.printCardsHand(display.getCardImage(10), "nameOfPlayer");
+        StatsType statsType = display.statisticsSelection(player1Card.getCardImage(player1.getAmountOfCards()), "asdfasdf");
+        display.printCardsHand(player2Card.getCardImage(player2.getAmountOfCards()), player2.getName());
         display.pressEnterToContinue();
        
         // if(player1Card.compareCard(player2Card, chosenStat)) {
