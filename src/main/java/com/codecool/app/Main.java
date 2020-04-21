@@ -1,10 +1,12 @@
 package com.codecool.app;
 
+import com.codecool.parser.CardParser;
+
 public class Main {
 
     public static void main() {
         
-
+        Deck deck = new Deck();
         /*
     
         Player player1 = new Player();
