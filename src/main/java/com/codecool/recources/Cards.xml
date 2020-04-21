@@ -11,7 +11,7 @@
                 <Magic>2</Magic>      
     </Card>
     <Card name="Barbarian"> 
-                <Health>10</Health>
+                <Health>5</Health>
                 <Strength>10</Strength>
                 <Magic>1</Magic>
     </Card>

@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Player{
     private List<Card> hand;
 
-    Player(){
+    public Player(){
         hand = new ArrayList<>();
     }
     
@@ -24,6 +24,8 @@ public abstract class Player{
     public int getAmountOfCards(){
         return hand.size();
     }
+
+    public abstract String getName();
 }
 
 
