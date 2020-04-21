@@ -10,18 +10,18 @@ public abstract class Player{
         hand = new ArrayList<>();
     }
     
-    protected void addCard(Card card) {
+    public void addCard(Card card) {
         hand.add(card);
     }
-    protected Card throwCard(int index){
+    public Card throwCard(int index){
         return hand.get(index);
     }
 
-    protected Stat selectStat(Card card, Stat stat){
-        return card.getStat(stat);
+    public Stats selectStat(Card card, Stats stat ){
+        return card.getStats(stat);
     }
 
-    protected int getAmountOfCards(){
+    public int getAmountOfCards(){
         return hand.size();
     }
 }
