@@ -17,10 +17,11 @@ public class Display {
         return userInput;
     }
 
-    public void battleScreen(String player1Name, String player2Name, String player1CardImage, String player2CardImage) {
+    public void battleScreen(List<Card> cards, String winnerName) {
         clearScreen();
-        System.out.printf(String.format("\nPlayer: %s\n\n%s\nPlayer: %s\n\n%s\nThis battle wins: %s\n", 
-                player1Name, player1CardImage, player2Name, player2CardImage, player1Name));
+        for (Card card : cards)
+            System.out.printf("\nPlayer: %s%s\n", card.getCardImage());
+        System.out.printf("\nThis battle wins: %s\n", winnerName);
         pressEnterToContinue();
     }
 
@@ -77,6 +78,12 @@ public class Display {
 
         }while(amount <= 0 || amount > maxAmount);
         return amount;
+    }
+
+    public void informationAboutDefeat(String nameOfLoser) {
+        clearScreen();
+        System.out.printf("\n\n\n    Player: %s just lost the game!\n\n", nameOfLoser);
+        pressEnterToContinue();
     }
 
     public List<Player> providePlayers() {

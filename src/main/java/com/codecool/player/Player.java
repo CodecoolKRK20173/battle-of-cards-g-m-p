@@ -15,8 +15,10 @@ public abstract class Player{
     public void addCard(Card card) {
         hand.add(card);
     }
-    public Card throwCard(int index){
-        return hand.get(index);
+    public Card throwCard(){
+        Card card = hand.get(0);
+        hand.remove(0);
+        return card;
     }
 
     public int getAmountOfCards(){

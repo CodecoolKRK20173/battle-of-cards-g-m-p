@@ -1,42 +1,51 @@
 package com.codecool.app;
 
+import java.util.ArrayList;
+import java.util.List;
+import com.codecool.screens.Display;
 import com.codecool.player.*;
 
 public class Game{
     
 
-    Player player1;
-    Player player2;
+    List<Player> players;
+    List<Player> losers;
     Battle battle;
+    Display display;
 
-    public Game(Player player1, Player player2) {
-        this.player1 = player1;
-        this.player2 = player2;
+    public Game(List<Player> players) {
+        this.players = players;
+        losers = new ArrayList<>();
         battle = new Battle();
+        display = new Display();
     }
 
-    public Player gameLoop() {
+    public void gameLoop() {
         while(nobodyWon()) {
-            battle.makeTurn(player1, player2);
-            if (!(nobodyWon()))
-                break;
-            battle.makeTurn(player2, player1);
+            battle.makeTurn(players);
+            checkIfSomebodyLose();
+            Player playerToMove = players.get(0);
+            players.remove(playerToMove);
+            players.add(playerToMove);
         }
-        return getWinner();
+        losers.addAll(players);
+        // TODO display.endScreen(losers);
     }
 
     private boolean nobodyWon() {
-        if (player1.getAmountOfCards() == 0 || player2.getAmountOfCards() == 0)
-            return true; // TODO item
+        if (players.size() == 1)
+            return false;
         return true;
     }
 
-    private Player getWinner() {
-        if (player1.getAmountOfCards() == 0)
-            return player2;
-        return player1;
+    private void checkIfSomebodyLose() {
+        for (Player player : players) {
+            if (player.getAmountOfCards() == 0) {
+                players.remove(player);
+                losers.add(player);
+                display.informationAboutDefeat(player.getName());
+            }
+        }
     }
-
-    
 
 }
