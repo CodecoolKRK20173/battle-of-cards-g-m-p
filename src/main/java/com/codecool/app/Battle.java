@@ -33,7 +33,7 @@ public class Battle {
 
         int winnerIndex = cards.indexOf(bestCard);
         
-        display.battleScreen(cards, players.get(winnerIndex).getName());
+        display.battleScreen(cards, players, players.get(winnerIndex).getName());
 
         for (Card card : cards)
             players.get(winnerIndex).addCard(card);
