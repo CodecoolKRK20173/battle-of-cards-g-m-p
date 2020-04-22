@@ -17,10 +17,10 @@ public class Display {
         return userInput;
     }
 
-    public void battleScreen(List<Card> cards, String winnerName) {
+    public void battleScreen(List<Card> cards, List<Player> players, String winnerName) {
         clearScreen();
-        for (Card card : cards)
-            System.out.printf("\nPlayer: %s%s\n", card.getCardImage());
+        for (int i = 0; i < cards.size(); i++)
+            System.out.printf("\nPlayer: %s%s\n\n", players.get(i).getName(), cards.get(i).getCardImage());
         System.out.printf("\nThis battle wins: %s\n", winnerName);
         pressEnterToContinue();
     }
