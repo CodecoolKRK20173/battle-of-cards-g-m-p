@@ -13,9 +13,6 @@ public class Card {
       this.magic = magic;
     }
     
-    // public Stats getStats(Stats stat) {
-		//   return null;
-  // }
       
     public String getCardImage(int amountOfCards) {
         int cardWidth = 25;
@@ -31,5 +28,23 @@ public class Card {
         return cardImage;
 
     }
+
+
+	public int getStat(StatsType statsType) {
+		switch (statsType.ordinal()) {
+      case 0:
+        return this.health;
+      case 1:
+        return this.strength;
+      case 2:
+        return this.strength;
+    }
+    return 0;
+	}
+
+
+	public boolean compareCard(Card player2Card, StatsType statsType) {
+    return (this.getStat(statsType) > player2Card.getStat(statsType));
+	}
         
 }
