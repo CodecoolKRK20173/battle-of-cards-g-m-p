@@ -14,15 +14,10 @@ public class Main {
         while(isRunning) {
             switch (display.startScreen()) {
                 case "start":
-                    int number = display.choseAmountToDeal(52, 3);
-                    System.out.println(number);
-                    display.pressEnterToContinue();
                     List<Player> players = display.providePlayers();
-                    Player player1 = players.get(0);
-                    Player player2 = players.get(1);
                     Deck deck = new Deck();
-                    deck.dealCards(player1, player2);
-                    Game game = new Game(player1, player2);
+                    deck.dealCards(players);
+                    Game game = new Game(players);
                     game.gameLoop();
                     break;
                 case "quit":

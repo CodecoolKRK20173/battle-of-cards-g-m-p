@@ -2,6 +2,7 @@ package com.codecool.app;
 
 import java.util.List;
 
+import com.codecool.screens.Display;
 import com.codecool.parser.CardParser;
 import com.codecool.player.*;
 
@@ -20,11 +21,12 @@ public class Deck {
         deck = cardsParser.parse();
     }
 
-    public void dealCards(Player... players) {
-        while (deck.size() > players.length){
+    public void dealCards(List<Player> players) {
+        int amount = new Display().choseAmountToDeal(deck.size(), players.size());
+        for (int i=0; i<amount; i++){
             for (Player player : players) {
-                    player.addCard(deck.get(0));
-                    deck.remove(0);
+                player.addCard(deck.get(0));
+                deck.remove(0);
             }
         }
     }

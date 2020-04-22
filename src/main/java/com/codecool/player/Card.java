@@ -13,6 +13,9 @@ public class Card {
       this.magic = magic;
     }
     
+    public String getCardImage() {
+        return getCardImage(1);
+    }
       
     public String getCardImage(int amountOfCards) {
         int cardWidth = 25;
