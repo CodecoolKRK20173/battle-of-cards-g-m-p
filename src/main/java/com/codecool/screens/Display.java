@@ -20,7 +20,7 @@ public class Display {
     public void battleScreen(List<Card> cards, List<Player> players, String winnerName) {
         clearScreen();
         for (int i = 0; i < cards.size(); i++)
-            System.out.printf("\nPlayer: %s%s\n\n", players.get(i).getName(), cards.get(i).getCardImage());
+            System.out.printf("\nPlayer: %s\n%s\n", players.get(i).getName(), cards.get(i).getCardImage());
         System.out.printf("\nThis battle wins: %s\n", winnerName);
         pressEnterToContinue();
     }
