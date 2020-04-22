@@ -1,8 +1,10 @@
 package com.codecool.screens;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.codecool.player.StatsType;
+import com.codecool.player.*;
 
 public class Display {
 
@@ -15,7 +17,7 @@ public class Display {
         return userInput;
     }
 
-    public void displayBattleScreen(String player1Name, String player2Name, String player1CardImage, String player2CardImage) {
+    public void battleScreen(String player1Name, String player2Name, String player1CardImage, String player2CardImage) {
         clearScreen();
         System.out.printf(String.format("\nPlayer: %s\n\n%s\nPlayer: %s\n\n%s\nThis battle wins: %s\n", 
                 player1Name, player1CardImage, player2Name, player2CardImage, player1Name));
@@ -23,7 +25,6 @@ public class Display {
     }
 
     public StatsType statisticsSelection(String cardImage, String nameOfPlayer) {
-        clearScreen();
         printCardsHand(cardImage, nameOfPlayer);
         while(true) {
             System.out.println("\nProvide number of attribute you want to fight with:\n" +
@@ -36,20 +37,81 @@ public class Display {
                 case "3":
                     return StatsType.STATS3;
                 default:
-                    System.out.println("That's not appropriate number!");
+                    System.out.println("That's not a proper number!");
                     break;
             }
         }
     }
 
     public void printCardsHand(String cardImage, String nameOfPlayer) {
+        clearScreen();
         System.out.println(cardImage);
         System.out.println(String.format("Player: %s", nameOfPlayer));
     }
 
+    public void printCardsHand(String cardImage, String nameOfPlayer, String chosenType) {
+        printCardsHand(cardImage, nameOfPlayer);
+        System.out.printf("Chosen type: %s\n", chosenType);
+        pressEnterToContinue();
+    }
+    
     public void pressEnterToContinue() {
         System.out.println("\nPress ENTER to continue\n");
         scan.nextLine();
+    }
+
+    public int choseAmountToDeal(int amountOfCards, int amountOfPlayers) {
+        clearScreen();
+        int maxAmount = Math.floorDiv(amountOfCards, amountOfPlayers);
+        int amount = 0;
+        do{
+            System.out.printf("\nProvide how many cards you want give each player: (from 1 to %s)\n\n", maxAmount);
+            try{
+                amount = Integer.parseInt(scan.nextLine());
+                if(amount <= 0 || amount >= maxAmount) {
+                    throw new NumberFormatException();
+                }
+            } catch (NumberFormatException e){
+                System.out.println("That's not a proper number!");
+            }
+
+        }while(amount <= 0 || amount > maxAmount);
+        return amount;
+    }
+
+    public List<Player> providePlayers() {
+        clearScreen();
+        int maxNumberOfPlayers = 4;
+        List<Player> players = new ArrayList<>();
+        for (int numeral = 1; numeral<=maxNumberOfPlayers; numeral++)
+            addPlayer(players, players.size() >= 2, numeral);
+        return players;
+    }
+
+    private void addPlayer(List<Player> players, boolean isNotRequired, int numeral) {
+        boolean playerIsNotChosen = true;
+        while(playerIsNotChosen) {
+            System.out.printf("Provide number of %d player:\n\n1. Person\n2.Computer\n%s",
+                    numeral, isNotRequired ? "3. None\n":"");
+            switch (scan.nextLine()) {
+                case "1":
+                    System.out.println("Provide name of player:");
+                    players.add(new Person(scan.nextLine()));
+                    playerIsNotChosen = false;
+                    break;
+                case "2":
+                    players.add(new Computer(String.format("Computer%s", numeral)));
+                    playerIsNotChosen = false;
+                    break;
+                case "3":
+                    if (isNotRequired) {
+                        playerIsNotChosen = false;
+                    }
+                default:
+                    System.out.println("\nThat's not a proper number!\n");
+                    break;
+            }
+        }
     }
 
     private void clearScreen() {

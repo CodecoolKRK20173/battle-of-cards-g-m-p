@@ -1,18 +1,18 @@
 package com.codecool.player;
 
-public class Person extends Player{
-    private String name;
+import com.codecool.screens.Display;
 
-    public Person(){
-        super();
+public class Person extends Player{
+
+    Display display;
+
+    public Person(String name){
+        super(name);
+        display = new Display();
     }
     
-    public String getName(){
-        return name;
-    }
-    
-    
-    public void showCards() {
+    public StatsType getStatsType(String cardImage) {
+        return display.statisticsSelection(cardImage, this.getName());
     }
 
 }

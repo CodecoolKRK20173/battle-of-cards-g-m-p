@@ -5,9 +5,11 @@ import java.util.List;
 
 public abstract class Player{
     private List<Card> hand;
+    private String name;
 
-    public Player(){
+    public Player(String name){
         hand = new ArrayList<>();
+        this.name = name;
     }
     
     public void addCard(Card card) {
@@ -17,17 +19,16 @@ public abstract class Player{
         return hand.get(index);
     }
 
-    // public Stats selectStat(Card card, Stats stat ){
-    //     return card.getStats(stat);
-    // }
-
     public int getAmountOfCards(){
         return hand.size();
     }
 
-    public abstract String getName();
+    public String getName() {
+        return name;
+    }
 
-    
+    public abstract StatsType getStatsType(String cardImage);
+
 
 }
 
