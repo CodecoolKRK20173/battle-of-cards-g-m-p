@@ -29,6 +29,7 @@ public abstract class Player{
 
     public abstract StatsType getStatsType(String cardImage);
 
+
 }
 
 

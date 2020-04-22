@@ -10,10 +10,8 @@ public class Battle {
     public Battle() {
         display = new Display();
     }
-    
 
     public void makeTurn(Player player1, Player player2) {
-       
         Card player1Card = player1.throwCard(0);
         Card player2Card = player2.throwCard(0);
 
@@ -34,7 +32,5 @@ public class Battle {
         // }
 
     }
-
-
 
 }
