@@ -20,10 +20,12 @@ public class Deck {
         deck = cardsParser.parse();
     }
 
-    public void dealCards(Player player1, Player player2) {
-        player1.addCard(deck.get(0));
-        player2.addCard(deck.get(1));
-        player2.addCard(deck.get(2));
-        
+    public void dealCards(Player... players) {
+        while (deck.size() > players.length){
+            for (Player player : players) {
+                    player.addCard(deck.get(0));
+                    deck.remove(0);
+            }
+        }
     }
 }
