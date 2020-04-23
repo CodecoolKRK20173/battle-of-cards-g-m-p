@@ -14,30 +14,98 @@ public class Battle {
     }
 
     public void makeTurn(List<Player> players) {
-        List<Card> cards = new ArrayList<>();
-        List<Integer> amountOfCards = new ArrayList<>();
-        for (Player player : players){
-            amountOfCards.add(player.getAmountOfCards());
-            cards.add(player.throwCard());
-        }
+        List<Player> fighters = new ArrayList<>();
+        fighters.addAll(players);
         
-        StatsType statsType = players.get(0).getStatsType(cards.get(0).getCardImage(amountOfCards.get(0)));
-        Card bestCard = cards.get(0);
+        StatsType statsType = players.get(0).getStatsType(players.get(0).getTopCard()
+                .getCardImage());
 
-        for (int i = 1; i < players.size(); i++) {
-            display.printCardsHand(cards.get(i).getCardImage(amountOfCards.get(i)), players.get(i).getName());
-            display.pressEnterToContinue();
-            if (cards.get(i).compareCard(bestCard, statsType))
-                bestCard = cards.get(i);
+        List<Card> cardsInTurn = new ArrayList<>();
+        List<Card> clipBoard = new ArrayList<>();
+
+        do {
+            if (nobodyHasCards(fighters)) {
+                // TODO display.nobodyWinsDraw();
+                System.out.println("\n\n\nNobody wins draw!\n\n");
+                display.pressEnterToContinue();
+                break;
+            }
+            for (int i = 0; i < fighters.size(); i++) {
+                try{
+                    display.printCardsHand(fighters.get(i).getTopCard().getCardImage(fighters.get(i).getAmountOfCards()),
+                        fighters.get(i).getName());
+                    cardsInTurn.add(fighters.get(i).getTopCard());
+                } catch (IndexOutOfBoundsException e) {
+                    display.printCardsHand("You have got no cards!\nYou lose extra rund!", fighters.get(i).getName());
+                    fighters.remove(i);
+                }
+                display.pressEnterToContinue();
+            }
+
+            List<Card> bestCards = getBestCards(cardsInTurn, statsType);
+
+            String winnerName = "DRAW";
+            if (bestCards.size() == 1) {
+                for (Player fighter : fighters) {
+                    if (fighter.getTopCard() == bestCards.get(0)) {
+                        winnerName = fighter.getName();
+                    }
+                }
+            }
+
+            display.battleScreen(cardsInTurn, fighters, winnerName);
+
+            for (int i = 0; i<fighters.size(); i++) {
+                clipBoard.add(fighters.get(i).throwCard());
+                if (!(bestCards.contains(clipBoard.get(clipBoard.size() - 1)))) {
+                    fighters.remove(i);
+                    i--;
+                }
+            }
+            cardsInTurn.removeAll(cardsInTurn);
+
+        }while (fighters.size() != 1);
+
+        if (fighters.size() == 1){
+            for (Card card : clipBoard) {
+                fighters.get(0).addCard(card);
+            }
+        } else {
+            while (clipBoard.size() != 0) {
+                try {
+                    for (Player fighter : fighters) {
+                        fighter.addCard(clipBoard.get(0));
+                        clipBoard.remove(0);
+                    }
+                } catch (IndexOutOfBoundsException e) {}
+            }
         }
 
-        int winnerIndex = cards.indexOf(bestCard);
-        
-        display.battleScreen(cards, players, players.get(winnerIndex).getName());
+    }
 
-        for (Card card : cards)
-            players.get(winnerIndex).addCard(card);
+    private List<Card> getBestCards(List<Card> cardsInTurn, StatsType statsType) {
+        List<Card> bestCards = new ArrayList<>();
+        bestCards.add(cardsInTurn.get(0));
+        for (int i = 1; i<cardsInTurn.size(); i++) {
+            switch (bestCards.get(0).compareCard(cardsInTurn.get(i), statsType)) {
+                case WORSER:
+                    bestCards.removeAll(bestCards);
+                case SAME:
+                    bestCards.add(cardsInTurn.get(i));
+                default:
+                    break;
+            }
+        }
+        return bestCards;
+    }
 
+    private boolean nobodyHasCards(List<Player> players) {
+        for (Player player : players) {
+            if (player.getAmountOfCards() > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

@@ -15,6 +15,11 @@ public abstract class Player{
     public void addCard(Card card) {
         hand.add(card);
     }
+
+    public Card getTopCard() throws IndexOutOfBoundsException {
+        return hand.get(0);
+    }
+    
     public Card throwCard(){
         Card card = hand.get(0);
         hand.remove(0);

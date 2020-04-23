@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Cards>
+<?xml version="1.0" encoding="utf-8" standalone="no"?><Cards>
     <Card name="Wizard">
         <Health>1</Health>
         <Strength>12</Strength>
@@ -114,7 +113,7 @@
         <Health>23</Health>
         <Strength>10</Strength>
         <Magic>2</Magic>
-    </Card>
+    </Card> 
     <Card name="Wisp"> 
         <Health>24</Health>
         <Strength>11</Strength>

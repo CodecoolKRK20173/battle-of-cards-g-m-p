@@ -1,6 +1,6 @@
 package com.codecool.player;
 
-public class Card {
+public class Card implements Comparable{
     private String name;
     private int health;
     private int strength;
@@ -45,9 +45,18 @@ public class Card {
     return 0;
 	}
 
-
-	public boolean compareCard(Card player2Card, StatsType statsType) {
-    return (this.getStat(statsType) > player2Card.getStat(statsType));
+    @Override
+	public ComparableType compareCard(Card player2Card, StatsType statsType) {
+    if (this.getStat(statsType) > player2Card.getStat(statsType)) {
+      return ComparableType.BETTER;
+    }
+    if(this.getStat(statsType) == player2Card.getStat(statsType)) {
+      return ComparableType.SAME;
+    }
+    return ComparableType.WORSER;
 	}
+
+
+	
         
 }
