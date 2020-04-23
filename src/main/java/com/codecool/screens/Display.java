@@ -4,26 +4,40 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.codecool.parser.CardParser;
 import com.codecool.player.*;
+import main.java.com.codecool.screens.Menu;
 
 public class Display {
 
     Scanner scan = new Scanner(System.in);
+    Menu menu = new Menu();
+    
+    
 
     public String startScreen() {
         clearScreen();
-        System.out.println("\n\n\n    Provide \"start\" to run game\n\n    Provide \"quit\" to quit\n\n");
+        menu.draw();
         String userInput = scan.nextLine();
         return userInput;
     }
-
+    
     public void battleScreen(List<Card> cards, List<Player> players, String winnerName) {
         clearScreen();
-        for (int i = 0; i < cards.size(); i++){
-            System.out.printf("\nPlayer: %s\n%s\n", players.get(i).getName(), cards.get(i).getCardImage());
-        }
+        for (int i = 0; i < cards.size(); i++)
+            System.out.printf("\nPlayer: %s%s\n\n", players.get(i).getName(), cards.get(i).getCardImage());
         System.out.printf("\nThis battle wins: %s\n", winnerName);
         pressEnterToContinue();
+    }
+    public void cardScreen(){
+        clearScreen();
+        CardParser cp = new CardParser();
+        for(Card card : cp.parse()){
+            System.out.println(card.getCardImage());
+
+        }
+        System.out.println("press any key to continue");
+        scan.nextLine();
     }
 
     public StatsType statisticsSelection(String cardImage, String nameOfPlayer) {
@@ -33,11 +47,11 @@ public class Display {
                     "    1. stats1\n    1. stats2\n    1. stats3\n");
             switch (scan.nextLine()) {
                 case "1":
-                    return StatsType.HEALTH;
+                    return StatsType.STATS1;
                 case "2":
-                    return StatsType.STRENGTH;
+                    return StatsType.STATS2;
                 case "3":
-                    return StatsType.MAGIC;
+                    return StatsType.STATS3;
                 default:
                     System.out.println("That's not a proper number!");
                     break;
@@ -115,7 +129,6 @@ public class Display {
                     if (isNotRequired) {
                         playerIsNotChosen = false;
                     }
-                    break;
                 default:
                     System.out.println("\nThat's not a proper number!\n");
                     break;
