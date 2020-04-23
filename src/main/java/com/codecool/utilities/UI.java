@@ -37,7 +37,7 @@ public class UI {
             System.out.println(card.getCardImage());
 
         }
-        System.out.println("press any key to continue");
+        System.out.println("press ENTER to continue");
         scan.nextLine();
     }
     public void infoScreen(){
@@ -53,7 +53,7 @@ public class UI {
         System.out.println();
         System.out.println("created By: \n Grzegorz Maleta \n Piotr Król \n Milosz Buchacz");
         System.out.println();
-        System.out.println("press any key to exit");
+        System.out.println("press ENTER to exit");
         scan.nextLine();
     }
 
