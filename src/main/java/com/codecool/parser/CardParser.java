@@ -87,7 +87,7 @@ public class CardParser extends XMLParser {
             String key = currentItem.getAttributes().getNamedItem("name").getNodeValue();
             if (key.equals(InputProvider.getString("Provide card name to remove: "))) {
                 currentItem.getParentNode().removeChild(currentItem);
-                status = true;
+                status = false;
             }
         }
         System.out.println((status) ? "Card deleted." : "Card not found");

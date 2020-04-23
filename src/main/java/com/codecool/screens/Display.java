@@ -39,6 +39,22 @@ public class Display {
         System.out.println("press any key to continue");
         scan.nextLine();
     }
+    public void infoScreen(){
+        clearScreen();
+        System.out.println("Welcome to our game! rules are about comparison each other cards by HEALTH, STREANGTH, MAGIC");
+        System.out.println();
+        System.out.println("you can select one of abilities, and then check if you win!");
+        System.out.println();
+        System.out.println("create or delate your cards by providing 'new'/'delete'");
+        System.out.println();
+        System.out.println("check your deck by providing 'cards'");
+        System.out.println();
+        System.out.println();
+        System.out.println("created By: \n Grzegorz Maleta \n Piotr Król \n Milosz Buchacz");
+        System.out.println();
+        System.out.println("press any key to exit");
+        scan.nextLine();
+    }
 
     public StatsType statisticsSelection(String cardImage, String nameOfPlayer) {
         printCardsHand(cardImage, nameOfPlayer);
