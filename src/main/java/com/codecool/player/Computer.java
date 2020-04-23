@@ -19,14 +19,14 @@ public class Computer extends Player{
         int amountOfTypes = 3;
         switch (random.nextInt(amountOfTypes)) {
             case 0:
-                display.printCardsHand(cardImage, super.getName(), "Stats1");
-                return StatsType.STATS1;
+                display.printCardsHand(cardImage, super.getName(), "");
+                return StatsType.HEALTH;
             case 1:
                 display.printCardsHand(cardImage, super.getName(), "Stats2");
-                return StatsType.STATS2;
+                return StatsType.STRENGTH;
             default:
                 display.printCardsHand(cardImage, super.getName(), "Stats3");
-                return StatsType.STATS3;
+                return StatsType.MAGIC;
         }
     }
 }

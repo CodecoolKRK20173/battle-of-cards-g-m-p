@@ -1,9 +1,20 @@
 package com.codecool.parser;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import com.codecool.player.Card;
+import com.codecool.player.StatsType;
+import com.codecool.utilities.InputProvider;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -23,12 +34,12 @@ public class CardParser extends XMLParser {
             if (cards.getNodeType() == Node.ELEMENT_NODE) {
                 Element card = (Element) cards;
                 String cardName = card.getAttribute("name");
-                int[] statistic = new int[3]; 
+                int[] statistic = new int[3];
                 int index = 0;
                 NodeList statsList = card.getChildNodes();
                 for (int j = 0; j < statsList.getLength(); j++) {
                     Node stats = statsList.item(j);
-                    if (stats.getNodeType() == Node.ELEMENT_NODE){
+                    if (stats.getNodeType() == Node.ELEMENT_NODE) {
                         Element stat = (Element) stats;
                         statistic[index] = Integer.parseInt(stat.getTextContent());
                         index++;
@@ -39,28 +50,31 @@ public class CardParser extends XMLParser {
         }
         return cardsList;
     }
-    
-    public void addCard(){
-        Element dataTag = doc.getDocumentElement();
-        Element cardTag =  (Element) dataTag.getElementsByTagName("Cards").item(0);
-        
-        Element newCard = doc.createElement("Card");
-        newCard.setAttribute("Super", "Card");
-        
-        Element health = doc.createElement("Health");
-        health.setTextContent("25");
-        
-        Element strength = doc.createElement("Strength");
-        strength.setTextContent("25");
 
-        Element magic = doc.createElement("Magic");
-        magic.setTextContent("25");
-        
-        newCard.appendChild(health);
-        newCard.appendChild(strength);
-        newCard.appendChild(magic);
-        
-        cardTag.appendChild(newCard);
-        System.out.println(cardTag);
+    public void addCard(){
+        Node newCard = doc.createElement("Card");
+        ((Element)newCard).setAttribute("name", InputProvider.getString("Provide a name of card: "));
+        for (StatsType stat : StatsType.values()){
+            newCard.appendChild(setStat(stat));
+        }
+        doc.getDocumentElement().appendChild(newCard);
+        saveXML();
+    }
+
+    private void saveXML() {
+        try {
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            Result output = new StreamResult(new File("src/main/java/com/codecool/recources/Cards.xml"));
+            Source input = new DOMSource(doc);
+            transformer.transform(input, output);
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Element setStat(StatsType statsType) {
+        Element stat = doc.createElement(statsType.label);
+        stat.setTextContent(Integer.toString(InputProvider.getInt("Set " + statsType.name() + " point's\n")));
+        return stat;
     }
 }
