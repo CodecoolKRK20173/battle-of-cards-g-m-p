@@ -2,70 +2,43 @@ package com.codecool.app;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.codecool.card.Card;
+import com.codecool.card.StatsType;
 import com.codecool.player.*;
-import com.codecool.screens.Display;
+import com.codecool.utilities.UI;
 
 public class Battle {
 
-    Display display;
+    private UI userInterface;
 
     public Battle() {
-        display = new Display();
+        userInterface = new UI();
     }
 
     public void makeTurn(List<Player> players) {
         List<Player> fighters = new ArrayList<>();
         fighters.addAll(players);
-        
         StatsType statsType = players.get(0).getStatsType(players.get(0).getTopCard()
                 .getCardImage());
-
         List<Card> cardsInTurn = new ArrayList<>();
         List<Card> clipBoard = new ArrayList<>();
-
         do {
             if (nobodyHasCards(fighters)) {
-                // TODO display.nobodyWinsDraw();
-                System.out.println("\n\n\nNobody wins draw!\n\n");
-                display.pressEnterToContinue();
+                userInterface.nobodyWinsDraw(fighters);
                 break;
             }
-            for (int i = 0; i < fighters.size(); i++) {
-                try{
-                    display.printCardsHand(fighters.get(i).getTopCard().getCardImage(fighters.get(i).getAmountOfCards()),
-                        fighters.get(i).getName());
-                    cardsInTurn.add(fighters.get(i).getTopCard());
-                } catch (IndexOutOfBoundsException e) {
-                    display.printCardsHand("You have got no cards!\nYou lose extra rund!", fighters.get(i).getName());
-                    fighters.remove(i);
-                }
-                display.pressEnterToContinue();
-            }
-
+            printEachPlayerHand(fighters, cardsInTurn);
             List<Card> bestCards = getBestCards(cardsInTurn, statsType);
-
-            String winnerName = "DRAW";
-            if (bestCards.size() == 1) {
-                for (Player fighter : fighters) {
-                    if (fighter.getTopCard() == bestCards.get(0)) {
-                        winnerName = fighter.getName();
-                    }
-                }
-            }
-
-            display.battleScreen(cardsInTurn, fighters, winnerName);
-
-            for (int i = 0; i<fighters.size(); i++) {
-                clipBoard.add(fighters.get(i).throwCard());
-                if (!(bestCards.contains(clipBoard.get(clipBoard.size() - 1)))) {
-                    fighters.remove(i);
-                    i--;
-                }
-            }
+            String winnerName = getWinnerName(fighters, bestCards);
+            userInterface.battleScreen(cardsInTurn, fighters, winnerName);
+            getRidOfLosers(fighters, clipBoard, bestCards);
             cardsInTurn.removeAll(cardsInTurn);
-
         }while (fighters.size() != 1);
+        dealCardFromBattle(fighters, clipBoard);
+    }
 
+    private void dealCardFromBattle(List<Player> fighters, List<Card> clipBoard) {
         if (fighters.size() == 1){
             for (Card card : clipBoard) {
                 fighters.get(0).addCard(card);
@@ -80,7 +53,42 @@ public class Battle {
                 } catch (IndexOutOfBoundsException e) {}
             }
         }
+    }
 
+    private void getRidOfLosers(List<Player> fighters, List<Card> clipBoard, List<Card> bestCards) {
+        for (int i = 0; i<fighters.size(); i++) {
+            clipBoard.add(fighters.get(i).throwCard());
+            if (!(bestCards.contains(clipBoard.get(clipBoard.size() - 1)))) {
+                fighters.remove(i);
+                i--;
+            }
+        }
+    }
+
+    private String getWinnerName(List<Player> fighters, List<Card> bestCards) {
+        String winnerName = "DRAW";
+        if (bestCards.size() == 1) {
+            for (Player fighter : fighters) {
+                if (fighter.getTopCard() == bestCards.get(0)) {
+                    winnerName = fighter.getName();
+                }
+            }
+        }
+        return winnerName;
+    }
+
+    private void printEachPlayerHand(List<Player> fighters, List<Card> cardsInTurn) {
+        for (int i = 0; i < fighters.size(); i++) {
+            try{
+                userInterface.printCardsHand(fighters.get(i).getTopCard().getCardImage(fighters.get(i).getAmountOfCards()),
+                    fighters.get(i).getName());
+                cardsInTurn.add(fighters.get(i).getTopCard());
+            } catch (IndexOutOfBoundsException e) {
+                userInterface.printCardsHand("You have got no cards!\nYou lose extra round!", fighters.get(i).getName());
+                fighters.remove(i);
+            }
+            userInterface.pressEnterToContinue();
+        }
     }
 
     private List<Card> getBestCards(List<Card> cardsInTurn, StatsType statsType) {

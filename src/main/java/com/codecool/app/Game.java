@@ -2,22 +2,22 @@ package com.codecool.app;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.codecool.screens.Display;
+import com.codecool.utilities.UI;
 import com.codecool.player.*;
 
 public class Game{
     
 
-    List<Player> players;
-    List<Player> losers;
-    Battle battle;
-    Display display;
+    private List<Player> players;
+    private List<Player> losers;
+    private Battle battle;
+    private UI userInterface;
 
     public Game(List<Player> players) {
         this.players = players;
         losers = new ArrayList<>();
         battle = new Battle();
-        display = new Display();
+        userInterface = new UI();
     }
 
     public void gameLoop() {
@@ -28,8 +28,8 @@ public class Game{
             players.add(playerToMove);
             checkIfSomebodyLose();
         }
-        losers.addAll(players);
-        // TODO display.endScreen(losers);
+        losers.add(0, players.get(0));
+        userInterface.endScreen(losers);
     }
 
     private boolean nobodyWon() {
@@ -41,8 +41,8 @@ public class Game{
     private void checkIfSomebodyLose() {
         for (int i = 0; i<players.size(); i++) {
             if (players.get(i).getAmountOfCards() == 0) {
-                losers.add(players.get(i));
-                display.informationAboutDefeat(players.get(i).getName());
+                losers.add(0, players.get(i));
+                userInterface.informationAboutDefeat(players.get(i).getName());
                 players.remove(i);
                 i--;
             }

@@ -12,8 +12,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import com.codecool.player.Card;
-import com.codecool.player.StatsType;
+import com.codecool.card.Card;
+import com.codecool.card.StatsType;
 import com.codecool.utilities.InputProvider;
 
 import org.w3c.dom.Element;

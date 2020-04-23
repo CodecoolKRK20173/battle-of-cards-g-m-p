@@ -1,14 +1,15 @@
-package com.codecool.screens;
+package com.codecool.utilities;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.codecool.card.Card;
+import com.codecool.card.StatsType;
 import com.codecool.parser.CardParser;
 import com.codecool.player.*;
-import main.java.com.codecool.screens.Menu;
 
-public class Display {
+public class UI {
 
     Scanner scan = new Scanner(System.in);
     Menu menu = new Menu();
@@ -25,7 +26,7 @@ public class Display {
     public void battleScreen(List<Card> cards, List<Player> players, String winnerName) {
         clearScreen();
         for (int i = 0; i < cards.size(); i++)
-            System.out.printf("\nPlayer: %s%s\n\n", players.get(i).getName(), cards.get(i).getCardImage());
+            System.out.printf("\nPlayer: %s\n%s\n", players.get(i).getName(), cards.get(i).getCardImage());
         System.out.printf("\nThis battle wins: %s\n", winnerName);
         pressEnterToContinue();
     }
@@ -41,11 +42,11 @@ public class Display {
     }
     public void infoScreen(){
         clearScreen();
-        System.out.println("Welcome to our game! rules are about comparison each other cards by HEALTH, STREANGTH, MAGIC");
+        System.out.println("Welcome to our game! rules are about comparison each other cards by HEALTH, STRENGTH, MAGIC");
         System.out.println();
         System.out.println("you can select one of abilities, and then check if you win!");
         System.out.println();
-        System.out.println("create or delate your cards by providing 'new'/'delete'");
+        System.out.println("create or delete your cards by providing 'new'/'delete'");
         System.out.println();
         System.out.println("check your deck by providing 'cards'");
         System.out.println();
@@ -60,14 +61,14 @@ public class Display {
         printCardsHand(cardImage, nameOfPlayer);
         while(true) {
             System.out.println("\nProvide number of attribute you want to fight with:\n" +
-                    "    1. stats1\n    1. stats2\n    1. stats3\n");
+                    "    1. HEALTH\n    2. STRENGTH\n    3. MAGIC\n");
             switch (scan.nextLine()) {
                 case "1":
-                    return StatsType.STATS1;
+                    return StatsType.HEALTH;
                 case "2":
-                    return StatsType.STATS2;
+                    return StatsType.STRENGTH;
                 case "3":
-                    return StatsType.STATS3;
+                    return StatsType.MAGIC;
                 default:
                     System.out.println("That's not a proper number!");
                     break;
@@ -117,6 +118,26 @@ public class Display {
         pressEnterToContinue();
     }
 
+    public void nobodyWinsDraw(List<Player> players) {
+        clearScreen();
+        System.out.printf("\n    %s\n\n%s\n", "    Nobody wins the extra round because of lack of cards",
+                "Cards come back to:");
+        for (Player player : players) {
+            System.out.println(player.getName());
+        }
+        pressEnterToContinue();
+    }
+
+    public void endScreen(List<Player> players) {
+        String[] places = {"First", "Second", "Third", "Fourth"};
+        clearScreen();
+        System.out.println("\nGAME OVER\n\nLEADERBOARD:\n");
+        for (int i = 0; i < players.size(); i++) {
+            System.out.printf("%-8s: %s\n", places[i], players.get(i).getName());
+        }
+        pressEnterToContinue();
+    }
+
     public List<Player> providePlayers() {
         clearScreen();
         int maxNumberOfPlayers = 4;
@@ -145,6 +166,7 @@ public class Display {
                     if (isNotRequired) {
                         playerIsNotChosen = false;
                     }
+                    break;
                 default:
                     System.out.println("\nThat's not a proper number!\n");
                     break;
