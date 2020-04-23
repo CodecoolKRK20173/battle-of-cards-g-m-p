@@ -39,4 +39,28 @@ public class CardParser extends XMLParser {
         }
         return cardsList;
     }
+    
+    public void addCard(){
+        Element dataTag = doc.getDocumentElement();
+        Element cardTag =  (Element) dataTag.getElementsByTagName("Cards").item(0);
+        
+        Element newCard = doc.createElement("Card");
+        newCard.setAttribute("Super", "Card");
+        
+        Element health = doc.createElement("Health");
+        health.setTextContent("25");
+        
+        Element strength = doc.createElement("Strength");
+        strength.setTextContent("25");
+
+        Element magic = doc.createElement("Magic");
+        magic.setTextContent("25");
+        
+        newCard.appendChild(health);
+        newCard.appendChild(strength);
+        newCard.appendChild(magic);
+        
+        cardTag.appendChild(newCard);
+        System.out.println(cardTag);
+    }
 }

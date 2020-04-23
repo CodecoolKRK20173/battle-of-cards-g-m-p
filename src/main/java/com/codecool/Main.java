@@ -1,6 +1,8 @@
-package com.codecool.app;
+package com.codecool;
 
 import java.util.List;
+
+import com.codecool.app.*;
 import com.codecool.player.*;
 import com.codecool.screens.Display;
 
@@ -16,6 +18,7 @@ public class Main {
                 case "start":
                     List<Player> players = display.providePlayers();
                     Deck deck = new Deck();
+                    deck.shuffleCards();
                     deck.dealCards(players);
                     Game game = new Game(players);
                     game.gameLoop();
