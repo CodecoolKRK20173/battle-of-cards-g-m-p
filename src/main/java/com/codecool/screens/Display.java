@@ -4,25 +4,40 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.codecool.parser.CardParser;
 import com.codecool.player.*;
+import main.java.com.codecool.screens.Menu;
 
 public class Display {
 
     Scanner scan = new Scanner(System.in);
+    Menu menu = new Menu();
+    
+    
 
     public String startScreen() {
         clearScreen();
-        System.out.println("\n\n\n    Provide \"start\" to run game\n\n    Provide \"quit\" to quit\n\n");
+        menu.draw();
         String userInput = scan.nextLine();
         return userInput;
     }
-
+    
     public void battleScreen(List<Card> cards, List<Player> players, String winnerName) {
         clearScreen();
         for (int i = 0; i < cards.size(); i++)
             System.out.printf("\nPlayer: %s%s\n\n", players.get(i).getName(), cards.get(i).getCardImage());
         System.out.printf("\nThis battle wins: %s\n", winnerName);
         pressEnterToContinue();
+    }
+    public void cardScreen(){
+        clearScreen();
+        CardParser cp = new CardParser();
+        for(Card card : cp.parse()){
+            System.out.println(card.getCardImage());
+
+        }
+        System.out.println("press any key to continue");
+        scan.nextLine();
     }
 
     public StatsType statisticsSelection(String cardImage, String nameOfPlayer) {

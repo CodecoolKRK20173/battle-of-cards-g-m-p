@@ -19,7 +19,7 @@ public class Card {
       
     public String getCardImage(int amountOfCards) {
         int cardWidth = 25;
-        String cardImage = String.format(" %s%s\n %s%s\\\n%s%-25s|\n%s%s|\n%s%-25s|\n%s%-25s|\n%s%-25s|\n %s%s/\n",
+        String cardImage = String.format(" %s%s\n %s%s\\\n%s%-25s|n%s%s|\n%s%-25s|\n%s%-25s|\n%s%-25s|\n %s%s/\n",
                 " ".repeat(amountOfCards), "_".repeat(cardWidth-2),
                 "/".repeat(amountOfCards), " ".repeat(cardWidth-2),
                 "|".repeat(amountOfCards), this.name,
