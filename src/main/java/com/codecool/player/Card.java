@@ -46,8 +46,14 @@ public class Card implements Comparable{
 	}
 
     @Override
-	public boolean compareCard(Card player2Card, StatsType statsType) {
-    return (this.getStat(statsType) > player2Card.getStat(statsType));
+	public ComparableType compareCard(Card player2Card, StatsType statsType) {
+    if (this.getStat(statsType) > player2Card.getStat(statsType)) {
+      return ComparableType.BETTER;
+    }
+    if(this.getStat(statsType) == player2Card.getStat(statsType)) {
+      return ComparableType.SAME;
+    }
+    return ComparableType.WORSER;
 	}
 
 
