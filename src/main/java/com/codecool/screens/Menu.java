@@ -30,7 +30,8 @@ public class Menu{
         System.out.println("*                  2. provide 'cards' to viev cards                    *");
         System.out.println("*                  3. provide 'info'  to viev game rules               *");
         System.out.println("*                  4. provide 'new'   to create new card               *");
-        System.out.println("*                  5. provide 'quit'  to end the game                  *");
+        System.out.println("*                  5. provide 'delete'to delete card                   *");
+        System.out.println("*                  6. provide 'quit'  to end the game                  *");
         System.out.println("*                                                                      *");
         System.out.println("************************************************************************");
         
