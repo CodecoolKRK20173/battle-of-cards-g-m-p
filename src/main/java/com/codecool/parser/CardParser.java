@@ -51,10 +51,10 @@ public class CardParser extends XMLParser {
         return cardsList;
     }
 
-    public void addCard(){
+    public void addCard() {
         Node newCard = doc.createElement("Card");
-        ((Element)newCard).setAttribute("name", InputProvider.getString("Provide a name of card: "));
-        for (StatsType stat : StatsType.values()){
+        ((Element) newCard).setAttribute("name", InputProvider.getString("Provide a name of card: "));
+        for (StatsType stat : StatsType.values()) {
             newCard.appendChild(setStat(stat));
         }
         doc.getDocumentElement().appendChild(newCard);
@@ -76,5 +76,21 @@ public class CardParser extends XMLParser {
         Element stat = doc.createElement(statsType.label);
         stat.setTextContent(Integer.toString(InputProvider.getInt("Set " + statsType.name() + " point's\n")));
         return stat;
+    }
+
+    public void deleteCard() {
+        loadXmlDocument("src/main/java/com/codecool/recources/Cards.xml");
+        NodeList nl = doc.getElementsByTagName("Card");
+        boolean status = false;
+        for (int i = 0; i < nl.getLength(); i++) {
+            Node currentItem = nl.item(i);
+            String key = currentItem.getAttributes().getNamedItem("name").getNodeValue();
+            if (key.equals(InputProvider.getString("Provide card name to remove: "))) {
+                currentItem.getParentNode().removeChild(currentItem);
+                status = true;
+            }
+        }
+        System.out.println((status) ? "Card deleted." : "Card not found");
+        saveXML();
     }
 }
