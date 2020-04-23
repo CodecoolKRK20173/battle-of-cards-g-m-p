@@ -23,27 +23,28 @@ public class Game{
     public void gameLoop() {
         while(nobodyWon()) {
             battle.makeTurn(players);
-            checkIfSomebodyLose();
             Player playerToMove = players.get(0);
             players.remove(playerToMove);
             players.add(playerToMove);
+            checkIfSomebodyLose();
         }
         losers.addAll(players);
         // TODO display.endScreen(losers);
     }
 
     private boolean nobodyWon() {
-        if (players.size() == 1)
+        if (players.size() <= 1)
             return false;
         return true;
     }
 
     private void checkIfSomebodyLose() {
-        for (Player player : players) {
-            if (player.getAmountOfCards() == 0) {
-                players.remove(player);
-                losers.add(player);
-                display.informationAboutDefeat(player.getName());
+        for (int i = 0; i<players.size(); i++) {
+            if (players.get(i).getAmountOfCards() == 0) {
+                losers.add(players.get(i));
+                display.informationAboutDefeat(players.get(i).getName());
+                players.remove(i);
+                i--;
             }
         }
     }

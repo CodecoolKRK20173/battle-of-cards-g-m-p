@@ -24,6 +24,12 @@ public class Battle {
         List<Card> clipBoard = new ArrayList<>();
 
         do {
+            if (nobodyHasCards(fighters)) {
+                // TODO display.nobodyWinsDraw();
+                System.out.println("\n\n\nNobody wins draw!\n\n");
+                display.pressEnterToContinue();
+                break;
+            }
             for (int i = 0; i < fighters.size(); i++) {
                 try{
                     display.printCardsHand(fighters.get(i).getTopCard().getCardImage(fighters.get(i).getAmountOfCards()),
@@ -60,8 +66,19 @@ public class Battle {
 
         }while (fighters.size() != 1);
 
-        for (Card card : clipBoard) {
-            fighters.get(0).addCard(card);
+        if (fighters.size() == 1){
+            for (Card card : clipBoard) {
+                fighters.get(0).addCard(card);
+            }
+        } else {
+            while (clipBoard.size() != 0) {
+                try {
+                    for (Player fighter : fighters) {
+                        fighter.addCard(clipBoard.get(0));
+                        clipBoard.remove(0);
+                    }
+                } catch (IndexOutOfBoundsException e) {}
+            }
         }
 
     }
@@ -71,7 +88,7 @@ public class Battle {
         bestCards.add(cardsInTurn.get(0));
         for (int i = 1; i<cardsInTurn.size(); i++) {
             switch (bestCards.get(0).compareCard(cardsInTurn.get(i), statsType)) {
-                case BETTER:
+                case WORSER:
                     bestCards.removeAll(bestCards);
                 case SAME:
                     bestCards.add(cardsInTurn.get(i));
@@ -80,6 +97,15 @@ public class Battle {
             }
         }
         return bestCards;
+    }
+
+    private boolean nobodyHasCards(List<Player> players) {
+        for (Player player : players) {
+            if (player.getAmountOfCards() > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
