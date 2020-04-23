@@ -19,8 +19,9 @@ public class Display {
 
     public void battleScreen(List<Card> cards, List<Player> players, String winnerName) {
         clearScreen();
-        for (int i = 0; i < cards.size(); i++)
+        for (int i = 0; i < cards.size(); i++){
             System.out.printf("\nPlayer: %s\n%s\n", players.get(i).getName(), cards.get(i).getCardImage());
+        }
         System.out.printf("\nThis battle wins: %s\n", winnerName);
         pressEnterToContinue();
     }
@@ -32,11 +33,11 @@ public class Display {
                     "    1. stats1\n    1. stats2\n    1. stats3\n");
             switch (scan.nextLine()) {
                 case "1":
-                    return StatsType.STATS1;
+                    return StatsType.HEALTH;
                 case "2":
-                    return StatsType.STATS2;
+                    return StatsType.STRENGTH;
                 case "3":
-                    return StatsType.STATS3;
+                    return StatsType.MAGIC;
                 default:
                     System.out.println("That's not a proper number!");
                     break;
@@ -114,6 +115,7 @@ public class Display {
                     if (isNotRequired) {
                         playerIsNotChosen = false;
                     }
+                    break;
                 default:
                     System.out.println("\nThat's not a proper number!\n");
                     break;
