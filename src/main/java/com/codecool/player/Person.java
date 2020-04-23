@@ -1,18 +1,19 @@
 package com.codecool.player;
 
-import com.codecool.screens.Display;
+import com.codecool.card.StatsType;
+import com.codecool.utilities.UI;
 
 public class Person extends Player{
 
-    Display display;
+    private UI userInterface;
 
     public Person(String name){
         super(name);
-        display = new Display();
+        userInterface = new UI();
     }
     
     public StatsType getStatsType(String cardImage) {
-        return display.statisticsSelection(cardImage, this.getName());
+        return userInterface.statisticsSelection(cardImage, this.getName());
     }
 
 }

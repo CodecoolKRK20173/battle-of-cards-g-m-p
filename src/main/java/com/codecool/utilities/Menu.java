@@ -1,4 +1,4 @@
-package main.java.com.codecool.screens;
+package com.codecool.utilities;
 
 public class Menu{
     

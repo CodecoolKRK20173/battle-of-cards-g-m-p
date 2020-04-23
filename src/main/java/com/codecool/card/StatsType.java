@@ -1,4 +1,4 @@
-package com.codecool.player;
+package com.codecool.card;
 
 public enum StatsType {
 

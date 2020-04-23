@@ -2,7 +2,9 @@ package com.codecool.app;
 
 import java.util.Collections;
 import java.util.List;
-import com.codecool.screens.Display;
+
+import com.codecool.card.Card;
+import com.codecool.utilities.UI;
 import com.codecool.parser.CardParser;
 import com.codecool.player.*;
 
@@ -25,7 +27,7 @@ public class Deck {
     }
 
     public void dealCards(List<Player> players) {
-        int amount = new Display().choseAmountToDeal(deck.size(), players.size());
+        int amount = new UI().choseAmountToDeal(deck.size(), players.size());
         for (int i = 0; i < amount; i++) {
             for (Player player : players) {
                 player.addCard(deck.get(0));

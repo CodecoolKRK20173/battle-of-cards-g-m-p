@@ -1,5 +1,8 @@
 package com.codecool.player;
 
+import com.codecool.card.Card;
+import com.codecool.card.StatsType;
+
 import java.util.ArrayList;
 import java.util.List;
 

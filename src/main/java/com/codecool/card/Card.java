@@ -1,6 +1,6 @@
-package com.codecool.player;
+package com.codecool.card;
 
-public class Card implements Comparable{
+public class Card implements Comparable {
     private String name;
     private int health;
     private int strength;
@@ -19,7 +19,7 @@ public class Card implements Comparable{
       
     public String getCardImage(int amountOfCards) {
         int cardWidth = 25;
-        String cardImage = String.format(" %s%s\n %s%s\\\n%s%-25s|n%s%s|\n%s%-25s|\n%s%-25s|\n%s%-25s|\n %s%s/\n",
+        String cardImage = String.format(" %s%s\n %s%s\\\n%s%-25s|\n%s%s|\n%s%-25s|\n%s%-25s|\n%s%-25s|\n %s%s/\n",
                 " ".repeat(amountOfCards), "_".repeat(cardWidth-2),
                 "/".repeat(amountOfCards), " ".repeat(cardWidth-2),
                 "|".repeat(amountOfCards), this.name,
@@ -40,7 +40,7 @@ public class Card implements Comparable{
       case 1:
         return this.strength;
       case 2:
-        return this.strength;
+        return this.magic;
     }
     return 0;
 	}
