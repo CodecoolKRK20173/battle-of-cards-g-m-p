@@ -21,8 +21,6 @@ public class Deck {
 
     private void getCardfromXML() {
         CardParser cardsParser = new CardParser();
-        // cardsParser.addCard();
-        // cardsParser.deleteCard();
         deck = cardsParser.parse();
     }
 

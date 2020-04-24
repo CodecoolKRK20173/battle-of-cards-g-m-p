@@ -15,6 +15,7 @@ import javax.xml.transform.stream.StreamResult;
 import com.codecool.card.Card;
 import com.codecool.card.StatsType;
 import com.codecool.utilities.InputProvider;
+import com.codecool.utilities.UI;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -52,6 +53,7 @@ public class CardParser extends XMLParser {
     }
 
     public void addCard() {
+        UI.clearScreen();
         Node newCard = doc.createElement("Card");
         ((Element) newCard).setAttribute("name", InputProvider.getString("Provide a name of card: "));
         for (StatsType stat : StatsType.values()) {
@@ -59,6 +61,8 @@ public class CardParser extends XMLParser {
         }
         doc.getDocumentElement().appendChild(newCard);
         saveXML();
+        System.out.println("Card added succesfully!");
+        UI.pressEnterToContinue();
     }
 
     private void saveXML() {
@@ -79,18 +83,21 @@ public class CardParser extends XMLParser {
     }
 
     public void deleteCard() {
+        UI.clearScreen();
         loadXmlDocument("src/main/java/com/codecool/recources/Cards.xml");
         NodeList nl = doc.getElementsByTagName("Card");
         boolean status = false;
+        String name = InputProvider.getString("Provide card name to remove: ");
         for (int i = 0; i < nl.getLength(); i++) {
             Node currentItem = nl.item(i);
             String key = currentItem.getAttributes().getNamedItem("name").getNodeValue();
-            if (key.equals(InputProvider.getString("Provide card name to remove: "))) {
+            if (name.equals(key)){
                 currentItem.getParentNode().removeChild(currentItem);
                 status = false;
             }
         }
-        System.out.println((status) ? "Card deleted." : "Card not found");
+        System.out.println((status) ? "Card not found" : "Card deleted.");
         saveXML();
+        UI.pressEnterToContinue();
     }
 }

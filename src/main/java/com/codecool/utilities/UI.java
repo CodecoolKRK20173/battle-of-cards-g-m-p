@@ -11,7 +11,7 @@ import com.codecool.player.*;
 
 public class UI {
 
-    Scanner scan = new Scanner(System.in);
+    static Scanner scan = new Scanner(System.in);
     Menu menu = new Menu();
     
     
@@ -88,7 +88,7 @@ public class UI {
         pressEnterToContinue();
     }
     
-    public void pressEnterToContinue() {
+    public static void pressEnterToContinue() {
         System.out.println("\nPress ENTER to continue\n");
         scan.nextLine();
     }
@@ -174,7 +174,7 @@ public class UI {
         }
     }
 
-    private void clearScreen() {
+    public static void clearScreen() {
         System.out.print("\033[H\033[2J");
     }
 
